@@ -85,7 +85,7 @@ topologies =
     postgres = [
       strategy: Cluster.Strategy.Postgres,
       config: [
-        url: System.get_env("DATABASE_URL", "ecto://postgres:postgres@localhost:6432/postgres"),
+        url: System.get_env("DATABASE_URL", "ecto://postgres:postgres@supavisor-db:5432/postgres"),
         heartbeat_interval: 5_000,
         channel_name: "supavisor_#{region}_#{maj}_#{min}"
       ]
@@ -166,8 +166,8 @@ if config_env() != :test do
     local_proxy_multiplier: System.get_env("LOCAL_PROXY_MULTIPLIER", "20") |> String.to_integer()
 
   config :supavisor, Supavisor.Repo,
-    url: System.get_env("DATABASE_URL", "ecto://postgres:postgres@localhost:6432/postgres"),
-    pool_size: System.get_env("DB_POOL_SIZE", "25") |> String.to_integer(),
+    url: System.get_env("DATABASE_URL", "ecto://postgres:postgres@supavisor-db:5432/postgres"),
+    pool_size: System.get_env("DB_POOL_SIZE", "50") |> String.to_integer(),
     ssl_opts: [
       verify: :verify_none
     ],
