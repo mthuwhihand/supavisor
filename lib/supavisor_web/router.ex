@@ -96,7 +96,7 @@ defmodule SupavisorWeb.Router do
     else
       _ ->
         conn
-        |> send_resp(404, "Unauthorized")
+        |> send_resp(401, "Unauthorized")
         |> halt()
     end
   end
