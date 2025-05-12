@@ -18,19 +18,25 @@ services:
       # POSTGRES_INITDB_ARGS: --auth-host=md5 --auth-local=md5
       # Uncomment to set MD5 authentication method on uninitialized databases
       # POSTGRES_INITDB_ARGS: --auth-host=md5
-  db2:
-    image: supabase/postgres:14.1.0.106
-    container_name: tenant-db1
-    ports:
-      - "7432:5432"  # sửa lại port host:container là 7432:5432
-    volumes:
-      - ./dev/postgres:/docker-entrypoint-initdb.d/
-      # Uncomment to set MD5 authentication method on uninitialized databases
-      # - ./dev/postgres/md5/etc/postgresql/pg_hba.conf:/etc/postgresql/pg_hba.conf
-    environment:
-      POSTGRES_HOST: /var/run/postgresql
-      # POSTGRES_USER: mthuwhihand
-      POSTGRES_PASSWORD: mthuwhihand
-      # POSTGRES_INITDB_ARGS: --auth-host=md5 --auth-local=md5
-    command: postgres -c config_file=/etc/postgresql/postgresql.conf -c max_prepared_transactions=2000
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
+  # db2:
+  #   image: supabase/postgres:14.1.0.106
+  #   container_name: tenant-db1
+  #   ports:
+  #     - "7432:5432"  # sửa lại port host:container là 7432:5432
+  #   volumes:
+  #     - ./dev/postgres:/docker-entrypoint-initdb.d/
+  #     # Uncomment to set MD5 authentication method on uninitialized databases
+  #     # - ./dev/postgres/md5/etc/postgresql/pg_hba.conf:/etc/postgresql/pg_hba.conf
+  #   environment:
+  #     POSTGRES_HOST: /var/run/postgresql
+  #     # POSTGRES_USER: mthuwhihand
+  #     POSTGRES_PASSWORD: mthuwhihand
+  #     # POSTGRES_INITDB_ARGS: --auth-host=md5 --auth-local=md5
+  #   command: postgres -c config_file=/etc/postgresql/postgresql.conf -c max_prepared_transactions=2000
 

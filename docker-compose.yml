@@ -24,3 +24,9 @@ services:
     command:  sh -c "/app/bin/migrate && /app/bin/server"
     # depends_on:
     #   - db
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
